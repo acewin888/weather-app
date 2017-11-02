@@ -5,6 +5,13 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private final String API_KEY = "70c9bfb67885b40a5f3f22eca2ccba90";
+
+    private String iconCode = "";
+
+    private String icon = "http://openweathermap.org/img/w/" + iconCode + ".png";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
