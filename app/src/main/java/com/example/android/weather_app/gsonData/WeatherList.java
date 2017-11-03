@@ -32,45 +32,45 @@ public class WeatherList {
     private String dt_txt;
 
 
-    public class MainInfo{
+    public static class MainInfo {
 
-        private float temp;
+        private double temp;
 
-        private float temp_min;
+        private double temp_min;
 
-        private float temp_max;
+        private double temp_max;
 
-        private float pressure;
+        private double pressure;
 
-        private float sea_level;
+        private double sea_level;
 
-        private float grnd_level;
+        private double grnd_level;
 
         private int humidity;
 
-        private float temp_kf;
+        private double temp_kf;
 
-        public float getTemp() {
+        public double getTemp() {
             return temp;
         }
 
-        public float getTemp_min() {
+        public double getTemp_min() {
             return temp_min;
         }
 
-        public float getTemp_max() {
+        public double getTemp_max() {
             return temp_max;
         }
 
-        public float getPressure() {
+        public double getPressure() {
             return pressure;
         }
 
-        public float getSea_level() {
+        public double getSea_level() {
             return sea_level;
         }
 
-        public float getGrnd_level() {
+        public double getGrnd_level() {
             return grnd_level;
         }
 
@@ -78,12 +78,44 @@ public class WeatherList {
             return humidity;
         }
 
-        public float getTemp_kf() {
+        public double getTemp_kf() {
             return temp_kf;
+        }
+
+        public void setTemp(double temp) {
+            this.temp = temp;
+        }
+
+        public void setTemp_min(double temp_min) {
+            this.temp_min = temp_min;
+        }
+
+        public void setTemp_max(double temp_max) {
+            this.temp_max = temp_max;
+        }
+
+        public void setPressure(double pressure) {
+            this.pressure = pressure;
+        }
+
+        public void setSea_level(double sea_level) {
+            this.sea_level = sea_level;
+        }
+
+        public void setGrnd_level(double grnd_level) {
+            this.grnd_level = grnd_level;
+        }
+
+        public void setHumidity(int humidity) {
+            this.humidity = humidity;
+        }
+
+        public void setTemp_kf(double temp_kf) {
+            this.temp_kf = temp_kf;
         }
     }
 
-    public class WeatherInfo{
+    public static class WeatherInfo {
 
         private int id;
 
@@ -108,33 +140,61 @@ public class WeatherList {
         public String getIcon() {
             return icon;
         }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public void setMain(String main) {
+            this.main = main;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public void setIcon(String icon) {
+            this.icon = icon;
+        }
     }
 
-    public class CloudsInfo{
+    public static class CloudsInfo {
 
         private int all;
 
         public int getAll() {
             return all;
         }
+
+        public void setAll(int all) {
+            this.all = all;
+        }
     }
 
-    public class WindInfo{
+    public static class WindInfo {
 
-        private float speed;
+        private double speed;
 
-        private float deg;
+        private double deg;
 
-        public float getSpeed() {
+        public double getSpeed() {
             return speed;
         }
 
-        public float getDeg() {
+        public double getDeg() {
             return deg;
+        }
+
+        public void setSpeed(double speed) {
+            this.speed = speed;
+        }
+
+        public void setDeg(double deg) {
+            this.deg = deg;
         }
     }
 
-    public class SnowInfo{
+    public class SnowInfo {
 
         // need to write private field
 
@@ -167,5 +227,33 @@ public class WeatherList {
 
     public String getDt_txt() {
         return dt_txt;
+    }
+
+    public void setDt(long dt) {
+        this.dt = dt;
+    }
+
+    public void setMainInfo(MainInfo mainInfo) {
+        this.mainInfo = mainInfo;
+    }
+
+    public void setWeathherInfoList(List<WeatherInfo> weathherInfoList) {
+        this.weathherInfoList = weathherInfoList;
+    }
+
+    public void setCloudsInfo(CloudsInfo cloudsInfo) {
+        this.cloudsInfo = cloudsInfo;
+    }
+
+    public void setWindInfo(WindInfo windInfo) {
+        this.windInfo = windInfo;
+    }
+
+    public void setSnowInfo(SnowInfo snowInfo) {
+        this.snowInfo = snowInfo;
+    }
+
+    public void setDt_txt(String dt_txt) {
+        this.dt_txt = dt_txt;
     }
 }

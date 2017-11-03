@@ -1,37 +1,45 @@
 package com.example.android.weather_app.gsonData;
 
+import com.google.gson.annotations.SerializedName;
+
+import static android.R.attr.id;
+
 /**
  * Created by kevinsun on 11/2/17.
  */
 
 public class CityInfo {
 
-    private int id;
+
 
     private String name;
 
+    @SerializedName("coord")
     private CoordInfo coordInfo;
 
     private String country;
 
-    public class CoordInfo{
+    public static class CoordInfo{
 
-        private float lat;
+        private double lat;
 
-        private float lon;
+        private double lon;
 
-        public float getLat() {
+        public double getLat() {
             return lat;
         }
 
-        public float getLon() {
+        public double getLon() {
             return lon;
         }
-    }
 
+        public void setLat(double lat) {
+            this.lat = lat;
+        }
 
-    public int getId() {
-        return id;
+        public void setLon(double lon) {
+            this.lon = lon;
+        }
     }
 
     public String getName() {
@@ -44,5 +52,18 @@ public class CityInfo {
 
     public String getCountry() {
         return country;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCoordInfo(CoordInfo coordInfo) {
+        this.coordInfo = coordInfo;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
