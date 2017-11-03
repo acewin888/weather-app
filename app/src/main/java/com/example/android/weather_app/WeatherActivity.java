@@ -95,13 +95,14 @@ public class WeatherActivity extends AppCompatActivity {
 
                 final String responseText = response.body().string();
 
+
                 if (Utility.handleCodReponse(responseText)) {
                     weatherLists = Utility.handleListReponse(responseText);
                     cityInfo = Utility.handleLocationReponse(responseText);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            showWeatherInfo(weatherLists);
+                            showForecastInfo(weatherLists);
                             showLocationInfo(cityInfo);
                         }
                     });
@@ -114,7 +115,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     }
 
-    private void showWeatherInfo(List<WeatherList> list) {
+    private void showForecastInfo(List<WeatherList> list) {
 
         int middleOne = list.size() / 2;
 
@@ -158,6 +159,7 @@ public class WeatherActivity extends AppCompatActivity {
 
         city_textView.setText(location);
 
-
     }
+
+
 }

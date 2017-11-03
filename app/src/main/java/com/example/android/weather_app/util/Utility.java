@@ -147,4 +147,18 @@ public class Utility {
 
         return null;
     }
+
+    public static WeatherList handleCurrentReponse(String reponse){
+        if(!TextUtils.isEmpty(reponse)){
+            try {
+                try {
+                    JSONObject jsonObject = new JSONObject(reponse);
+                    
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+    }
 }
