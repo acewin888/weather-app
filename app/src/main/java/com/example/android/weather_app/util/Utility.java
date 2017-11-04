@@ -14,6 +14,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.description;
+
 /**
  * Created by kevinsun on 11/3/17.
  */
@@ -150,15 +152,50 @@ public class Utility {
 
     public static WeatherList handleCurrentReponse(String reponse){
         if(!TextUtils.isEmpty(reponse)){
-            try {
+
                 try {
                     JSONObject jsonObject = new JSONObject(reponse);
-                    
+                    JSONArray jsonArray = jsonObject.getJSONArray("weather");
+
+                    List<WeatherList.WeatherInfo> list = new ArrayList<>();
+
+                    for(int a = 0; a < jsonArray.length(); a++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(a);
+                        WeatherList.WeatherInfo weatherInfo = new WeatherList.WeatherInfo();
+
+
+                        String description = jsonObject1.getString("description");
+                        String icon = jsonObject1.getString("icon");
+
+                        weatherInfo.setDescription(description);
+                        weatherInfo.setIcon(icon);
+
+                        list.add(weatherInfo);
+                    }
+
+                    JSONObject jsonObject2 = jsonObject.getJSONObject("main");
+                    WeatherList.MainInfo mainInfo = new WeatherList.MainInfo();
+
+                    double temp = jsonObject2.getDouble("temp");
+                    int humidity = jsonObject2.getInt("humidity");
+                    double pressure = jsonObject2.getDouble("pressure");
+                    mainInfo.setTemp(temp);
+                    mainInfo.setHumidity(humidity);
+                    mainInfo.setPressure(pressure);
+
+                    WeatherList weatherList = new WeatherList();
+                    weatherList.setWeathherInfoList(list);
+                    weatherList.setMainInfo(mainInfo);
+
+                    return weatherList;
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             }
-        }
+            return null;
+
     }
 }

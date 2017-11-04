@@ -1,11 +1,9 @@
 package com.example.android.weather_app;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.textservice.TextInfo;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,14 +17,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-
-import static android.R.attr.name;
 
 public class WeatherActivity extends AppCompatActivity {
 
@@ -60,13 +55,17 @@ public class WeatherActivity extends AppCompatActivity {
     @BindView(R.id.forecast_layout)
     LinearLayout forecaseLayout;
 
-    public static final String ZIPCODE_BASEURL = "http://api.openweathermap.org/data/2.5/forecast?zip=";
+    public static final String ZIPCODE_BASEURL_FORECAST = "http://api.openweathermap.org/data/2.5/forecast?zip=";
+
+    public static final String ZIPCODE_BASEURL_CURRENT = "http://api.openweathermap.org/data/2.5/weather?zip=";
 
     public static final String API_KEY = "&APPID=70c9bfb67885b40a5f3f22eca2ccba90";
 
     private List<WeatherList> weatherLists;
 
     private CityInfo cityInfo;
+
+    private WeatherList currentWeather;
 
 
     @Override
@@ -77,12 +76,14 @@ public class WeatherActivity extends AppCompatActivity {
 
         int zipCode = getIntent().getIntExtra(MainActivity.ZIP, 0);
 
-        requestWeather(zipCode);
+        requestCurrentWeather(zipCode);
+
+        requestWeatherForecast(zipCode);
     }
 
-    private void requestWeather(int zipCode) {
+    private void requestWeatherForecast(int zipCode) {
 
-        String zipCodeUrl = ZIPCODE_BASEURL + zipCode + API_KEY;
+        String zipCodeUrl = ZIPCODE_BASEURL_FORECAST + zipCode + API_KEY;
 
         HttpUtil.sendHttpRequest(zipCodeUrl, new Callback() {
             @Override
@@ -113,6 +114,45 @@ public class WeatherActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void requestCurrentWeather(int zipCode){
+
+        String zipCodeUrl = ZIPCODE_BASEURL_CURRENT + zipCode + API_KEY;
+
+        HttpUtil.sendHttpRequest(zipCodeUrl, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseText = response.body().string();
+
+                if(Utility.handleCodReponse(responseText)){
+                    currentWeather = Utility.handleCurrentReponse(responseText);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String description = currentWeather.getWeathherInfoList().get(0).getDescription();
+                            String icon = currentWeather.getWeathherInfoList().get(0).getIcon();
+                            double temp = currentWeather.getMainInfo().getTemp();
+                            double pressure =currentWeather.getMainInfo().getPressure();
+                            int humidity =currentWeather.getMainInfo().getHumidity();
+
+
+                            degree_textView.setText(temp + " ");
+                            weather_info_textView.setText(description);
+
+                            pressure_textView.setText(pressure + " ");
+                            humidity_textView.setText(humidity + " ");
+                        }
+                    });
+                }
+
+            }
+        });
     }
 
     private void showForecastInfo(List<WeatherList> list) {
